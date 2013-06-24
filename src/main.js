@@ -61,7 +61,8 @@ requirejs([
         choices: this.color_choices,
         col: 'color',
         global_q: this.global_q
-      });
+      })
+      .render();
     },
 
   });
