@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Qoogr Demo</title>
+    <style type="text/css">
+body {
+  margin: 0px;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+#qoogr-selector{
+  position: absolute;
+  height: 100%;
+  top: 0; left: 0; bottom: 0;
+  width: 200px;
+  padding: 0px 15px 0px 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: -webkit-gradient(linear, left top, right top, from(transparent),
+    color-stop(0.92, transparent),
+    color-stop(0.9201, rgba(89,163,179, 0.0)),
+    to(rgba(40, 84, 97, 0.3))), #7fd3e8;
+}
+#qoogr-selector ul {
+  padding: 10px;
+}
+#qoogr-selector li {
+  margin-right: 30px;
+  list-style-type: none;
+}
+#qoogr-selector li:hover {
+  text-decoration: underline;
+}
+#qoogr-graph {
+  margin-left: 20px;
+}
+#qoogr-controls {
+  position: fixed;
+  bottom: 0;
+  height: 200px;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  background: -webkit-gradient(linear, left 100, left top, from(transparent),
+    color-stop(0.92, transparent),
+    color-stop(0.9201, rgba(89,163,179, 0.0)),
+    to(rgba(40, 84, 97, 0.3))), #7fd3e8;
+  border: none;
+}
+#qoogr-controls h2 {
+  padding-left: 10px;
+  margin: 0px;
+}
+label, select, button, input[type="button"], input[type="reset"],
+input[type="submit"], input[type="radio"], input[type="checkbox"] {
+  cursor: pointer;
+}
+
+label {
+  display: block;
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="qoogr-box">
+      <div id="qoogr-selector">
+      </div>
+      <div id="qoogr-graph">
+      </div>
+      <div id="qoogr-controls">
+      </div>
+    </div>
+  </body>
+  <script data-main="static/src/main" src="static/vendor/require/require.js"></script>
+</html>
