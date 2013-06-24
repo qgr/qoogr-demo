@@ -4,3 +4,6 @@
 [submodule "src/qgr-cntrl-checkbox"]
 	path = src/qgr-cntrl-checkbox
 	url = git@github.com:sprin/qgr-cntrl-checkbox.git
+[submodule "src/qgr-graph-barchart"]
+	path = src/qgr-graph-barchart
+	url = git@github.com:sprin/qgr-graph-barchart.git
