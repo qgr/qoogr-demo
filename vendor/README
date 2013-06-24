@@ -1,0 +1,21 @@
+Directory Structure
+-------------------
+
+Vendor packages are organized into directories by package. The full and minified
+source are included.
+
+Package Versions
+----------------
+
+The unminified source includes the version of the package
+in the header comment. By ensuring the version is always in the header comment
+of the unminified source, the files may be named after the package without
+any version in the filename. This eliminates the need to modify filepaths when
+dependencies are upgraded.
+
+Licenses
+--------
+
+The LICENSE file is always included with vendor packages, and included in
+production builds where required.
+
