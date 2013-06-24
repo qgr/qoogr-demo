@@ -1,3 +1,6 @@
 [submodule "src/qoogr"]
 	path = src/qoogr
 	url = git@github.com:sprin/qoogr.git
+[submodule "src/qgr-cntrl-checkbox"]
+	path = src/qgr-cntrl-checkbox
+	url = git@github.com:sprin/qgr-cntrl-checkbox.git
