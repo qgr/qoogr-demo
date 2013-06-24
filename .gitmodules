@@ -1,0 +1,3 @@
+[submodule "src/qoogr"]
+	path = src/qoogr
+	url = git@github.com:sprin/qoogr.git
