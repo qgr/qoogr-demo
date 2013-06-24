@@ -39,16 +39,41 @@ requirejs([
     'jquery',
     'underscore',
     'backbone',
-    'qoogr/src/qoogr'
+    'qoogr/src/qoogr',
+    'qgr-cntrl-checkbox/src/qgr-cntrl-checkbox'
   ],
-  function(require, _, $, Backbone, Qoogr) {
+  function(require, $, _, Backbone, Qoogr, QgrCheckbox) {
+
+
+  var ControlsView = Qoogr.ControlsView.extend({
+
+    initialize: function(options) {
+      this.global_q = this.options.global_q;
+      this.render();
+      // Set up individual filter widgets here.
+      this.color_choices = new QgrCheckbox.CheckboxChoices([
+        {choice_val: 'qoral'},
+        {choice_val: 'qrimson'},
+        {choice_val: 'xhrtreuse'}
+      ]);
+      this.checkboxes_view  = new QgrCheckbox.CheckboxChoicesView({
+        el: '#color-choices',
+        choices: this.color_choices,
+        col: 'color',
+        global_q: this.global_q
+      });
+    },
+
+  });
 
   var AppController = Backbone.View.extend({
 
     el: $('body'),
 
     initialize: function() {
-      this.qoogr = new Qoogr.QoogrController();
+      this.qoogr = new Qoogr.Controller({
+        controls_class: ControlsView
+      });
     },
 
   });
