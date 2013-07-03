@@ -124,20 +124,30 @@ requirejs([
   });
 
 
-  var birds = [
-    {species: 'Common Sprinbird', color: 'rainbow', sex: 'm', val: 1},
-    {species: 'Waterfall Swift', color: 'qrimson', sex: 'f', val: 1},
-    {species: 'Waterfall Swift', color: 'xhrtreuse', sex: 'm', val: 2},
-    {species: 'Waterfall Swift', color: 'xhrtreuse', sex: 'f', val: 2},
-    {species: 'Cave Swiftlet', color: 'qoral', sex: 'm', val: 4},
-    {species: 'Cave Swiftlet', color: 'qoral', sex: 'f', val: 1},
-    {species: 'Cave Swiftlet', color: 'xhrtreuse', sex: 'f', val: 2},
-    {species: 'Cave Swiftlet', color: 'xhrtreuse', sex: 'm', val: 3},
-    {species: 'Rainbow Lorikeet', color: 'rainbow', sex: 'f', val: 3},
-    {species: 'Rainbow Lorikeet', color: 'rainbow', sex: 'm', val: 2},
-    {species: 'European Starling', color: 'jet', sex: 'm', val: 5},
-    {species: 'European Starling', color: 'jet', sex: 'f', val: 5}
-  ];
+  var birds_raw = {
+    meta: [
+      'species',
+      'color',
+      'sex',
+      'val'
+    ],
+    array: [
+      ['Common Sprin',       'rainbow',    'm',  1],
+      ['Waterfall Swift',    'qrimson',    'f',  1],
+      ['Waterfall Swift',    'xhrtreuse',  'm',  2],
+      ['Waterfall Swift',    'xhrtreuse',  'f',  2],
+      ['Cave Swiftlet',      'qoral',      'm',  4],
+      ['Cave Swiftlet',      'qoral',      'f',  1],
+      ['Cave Swiftlet',      'xhrtreuse',  'f',  2],
+      ['Cave Swiftlet',      'xhrtreuse',  'm',  3],
+      ['Rainbow Lorikeet',   'rainbow',    'f',  3],
+      ['Rainbow Lorikeet',   'rainbow',    'm',  2],
+      ['European Starling',  'jet',        'm',  5],
+      ['European Starling',  'jet',        'f',  5]
+    ]
+  };
+
+  var birds = QueryExecutor.expand_meta(birds_raw.meta, birds_raw.array);
 
   var array_map = {
     birds: birds,
