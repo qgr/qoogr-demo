@@ -7,3 +7,6 @@
 [submodule "src/qgr-graph-barchart"]
 	path = src/qgr-graph-barchart
 	url = git@github.com:sprin/qgr-graph-barchart.git
+[submodule "src/qjb-qexec-array"]
+	path = src/qjb-qexec-array
+	url = git@github.com:sprin/qjb-qexec-array.git
