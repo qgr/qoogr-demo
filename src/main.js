@@ -56,19 +56,37 @@ requirejs([
         [
           {choice_val: 'qoral'},
           {choice_val: 'qrimson'},
-          {choice_val: 'xhrtreuse'}
+          {choice_val: 'xhrtreuse'},
+          {choice_val: 'rainbow'},
+          {choice_val: 'jet'}
         ],
         {
           col: 'color'
         }
       );
 
+      t.sex_choices = new QgrCheckbox.CheckboxChoices(
+        [
+          {choice_val: 'm'},
+          {choice_val: 'f'},
+        ],
+        {
+          col: 'sex'
+        }
+      );
+
       // Proxy change events on contained data models to listeners.
       t.proxy(t.color_choices, 'change');
+      t.proxy(t.sex_choices, 'change');
 
       t.color_choice_view  = new QgrCheckbox.CheckboxChoicesView({
         el: '#color-choices',
         choices: this.color_choices,
+      })
+      .render();
+      t.sex_choice_view  = new QgrCheckbox.CheckboxChoicesView({
+        el: '#sex-choices',
+        choices: this.sex_choices,
       })
       .render();
     },
@@ -86,6 +104,9 @@ requirejs([
         select: {
           where: {
             and: []
+          },
+          agg: {
+            group_by: 'species'
           }
         }
       }
@@ -94,6 +115,7 @@ requirejs([
 
       // Push subclauses from control data models into query tree.
       and.push(t.controls.color_choices.get_subtree());
+      and.push(t.controls.sex_choices.get_subtree());
 
       // Fire change event to alert listeners qtree has changed.
       t.trigger('change');
@@ -103,10 +125,18 @@ requirejs([
 
 
   var birds = [
-    {species: 'Waterfall Swift', color: 'qrimson', val: 1},
-    {species: 'Waterfall Swift', color: 'xhrtreuse', val: 2},
-    {species: 'Cave Swiftlet', color: 'qoral', val: 4},
-    {species: 'Cave Swiftlet', color: 'xhrtreuse', val: 2}
+    {species: 'Common Sprinbird', color: 'rainbow', sex: 'm', val: 1},
+    {species: 'Waterfall Swift', color: 'qrimson', sex: 'f', val: 1},
+    {species: 'Waterfall Swift', color: 'xhrtreuse', sex: 'm', val: 2},
+    {species: 'Waterfall Swift', color: 'xhrtreuse', sex: 'f', val: 2},
+    {species: 'Cave Swiftlet', color: 'qoral', sex: 'm', val: 4},
+    {species: 'Cave Swiftlet', color: 'qoral', sex: 'f', val: 1},
+    {species: 'Cave Swiftlet', color: 'xhrtreuse', sex: 'f', val: 2},
+    {species: 'Cave Swiftlet', color: 'xhrtreuse', sex: 'm', val: 3},
+    {species: 'Rainbow Lorikeet', color: 'rainbow', sex: 'f', val: 3},
+    {species: 'Rainbow Lorikeet', color: 'rainbow', sex: 'm', val: 2},
+    {species: 'European Starling', color: 'jet', sex: 'm', val: 5},
+    {species: 'European Starling', color: 'jet', sex: 'f', val: 5}
   ];
 
   var array_map = {
