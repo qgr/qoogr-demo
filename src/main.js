@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: "static/src/",
+    baseUrl: "src/",
     paths: {
       'text': '../vendor/require/text',
       'json': '../vendor/require/json',
