@@ -1,12 +1,12 @@
 [submodule "src/qoogr"]
 	path = src/qoogr
-	url = git@github.com:sprin/qoogr.git
+	url = git://github.com/sprin/qoogr.git
 [submodule "src/qgr-cntrl-checkbox"]
 	path = src/qgr-cntrl-checkbox
-	url = git@github.com:sprin/qgr-cntrl-checkbox.git
+	url = git://github.com/sprin/qgr-cntrl-checkbox.git
 [submodule "src/qgr-graph-barchart"]
 	path = src/qgr-graph-barchart
-	url = git@github.com:sprin/qgr-graph-barchart.git
+	url = git://github.com/sprin/qgr-graph-barchart.git
 [submodule "src/qjb-qexec-array"]
 	path = src/qjb-qexec-array
-	url = git@github.com:sprin/qjb-qexec-array.git
+	url = git://github.com/sprin/qjb-qexec-array.git
