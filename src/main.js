@@ -103,7 +103,7 @@ requirejs([
       t.qtree = {
         select: {
           where: {
-            and: []
+            and: [] // We are going to insert clauses here.
           },
           agg: {
             group_by: 'species'
@@ -146,7 +146,8 @@ requirejs([
   var bird_graph_config = {
     graph: 'qgr-graph-barchart/src/qgr-graph-barchart',
     from: 'birds',
-    label: 'Birds'
+    label: 'species',
+    title: 'Birds'
   }
 
   var graph_config_map = {
