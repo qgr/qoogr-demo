@@ -49,8 +49,11 @@ requirejs([
   var ControlsView = Qoogr.ControlsView.extend({
 
     initialize: function(options) {
+      console.log('rendering controlsview');
       var t = this;
-      t.render();
+      t.container = t.options.container;
+      t.container.html(t.render());
+
       // Set up individual filter widgets here.
       t.color_choices = new QgrCheckbox.CheckboxChoices(
         [
@@ -75,6 +78,9 @@ requirejs([
         }
       );
 
+      // Maintain an array of filter data collections to iterate over.
+      t.filter_collections = [t.color_choices, t.sex_choices];
+
       // Proxy change events on contained data models to listeners.
       t.proxy(t.color_choices, 'change');
       t.proxy(t.sex_choices, 'change');
@@ -91,36 +97,50 @@ requirejs([
       .render();
     },
 
+    teardown: function() {
+      this.stopListening();
+      // Call teardown on individual controls here.
+      this.color_choice_view.teardown();
+      this.sex_choice_view.teardown();
+      this.$el.remove();
+      return this;
+    }
+
   });
 
 
-  var QueryMapper = Qoogr.QueryMapper.extend({
+  var BirdQmapper = Qoogr.QueryMapper.extend({
 
-    map_controls: function() {
-      var t = this;
-      // Build a new qtree by reading each control's data model.
-      // The following is a stub for a basic filter qtree.
-      t.qtree = {
+    get_qtree_base: function() {
+      // Filter and aggregate.
+      return {
         select: {
           where: {
-            and: [] // We are going to insert clauses here.
+            and: [] // We are going to insert filter clauses here.
           },
           agg: {
             group_by: 'species'
           }
         }
       }
-      // Alias the toplevel and subclause for brevity.
-      var and = t.qtree.select.where.and;
+    },
 
-      // Push subclauses from control data models into query tree.
-      and.push(t.controls.color_choices.get_subtree());
-      and.push(t.controls.sex_choices.get_subtree());
+  });
 
-      // Fire change event to alert listeners qtree has changed.
-      t.trigger('change');
-    }
+  var ColorQmapper = Qoogr.QueryMapper.extend({
 
+    get_qtree_base: function() {
+      return {
+        select: {
+          where: {
+            and: [] // We are going to insert filter clauses here.
+          },
+          agg: {
+            group_by: 'color'
+          }
+        }
+      }
+    },
   });
 
 
@@ -157,11 +177,23 @@ requirejs([
     graph: 'qgr-graph-barchart/src/qgr-graph-barchart',
     from: 'birds',
     label: 'species',
-    title: 'Birds'
+    title: 'Birds',
+    controls: ControlsView,
+    qmapper: BirdQmapper
+  }
+
+  var color_graph_config = {
+    graph: 'qgr-graph-barchart/src/qgr-graph-barchart',
+    from: 'birds',
+    label: 'color',
+    title: 'Color',
+    controls: ControlsView,
+    qmapper: ColorQmapper
   }
 
   var graph_config_map = {
-    birds: bird_graph_config
+    birds: bird_graph_config,
+    colors: color_graph_config
   }
 
   var AppController = Backbone.View.extend({
@@ -170,8 +202,6 @@ requirejs([
 
     initialize: function() {
       this.qoogr = new Qoogr.QoogrView({
-        controls_class: ControlsView,
-        qmapper_class: QueryMapper,
         qexec: QueryExecutor,
         array_map: array_map,
         graph_config_map: graph_config_map
