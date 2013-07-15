@@ -39,11 +39,12 @@ requirejs([
     'jquery',
     'underscore',
     'backbone',
+    'd3',
     'qoogr/src/qoogr',
     'qgr-cntrl-checkbox/src/qgr-cntrl-checkbox',
     'qjb-qexec-array/src/qjb-qexec-array'
   ],
-  function(require, $, _, Backbone, Qoogr, QgrCheckbox, QueryExecutor) {
+  function(require, $, _, Backbone, d3, Qoogr, QgrCheckbox, QueryExecutor) {
 
 
   var ControlsView = Qoogr.ControlsView.extend({
@@ -119,7 +120,9 @@ requirejs([
             and: [] // We are going to insert filter clauses here.
           },
           agg: {
-            group_by: 'species'
+            func: 'sum',
+            col: 'count',
+            group_by: ['species']
           }
         }
       }
@@ -136,7 +139,27 @@ requirejs([
             and: [] // We are going to insert filter clauses here.
           },
           agg: {
-            group_by: 'color'
+            func: 'sum',
+            col: 'count',
+            group_by: ['color']
+          }
+        }
+      }
+    },
+  });
+
+  var SpeciesSexQmapper = Qoogr.QueryMapper.extend({
+
+    get_qtree_base: function() {
+      return {
+        select: {
+          where: {
+            and: [] // We are going to insert filter clauses here.
+          },
+          agg: {
+            func: 'sum',
+            col: 'count',
+            group_by: ['species', 'sex']
           }
         }
       }
@@ -144,12 +167,13 @@ requirejs([
   });
 
 
+
   var birds_raw = {
     meta: [
       'species',
       'color',
       'sex',
-      'val'
+      'count'
     ],
     array: [
       ['Common Sprin',       'rainbow',    'm',  1],
@@ -178,6 +202,7 @@ requirejs([
     from: 'birds',
     label: 'species',
     title: 'Birds',
+    col: 'count',
     controls: ControlsView,
     qmapper: BirdQmapper
   }
@@ -187,13 +212,27 @@ requirejs([
     from: 'birds',
     label: 'color',
     title: 'Color',
+    col: 'count',
     controls: ControlsView,
     qmapper: ColorQmapper
   }
 
+  var stacked_graph_config = {
+    graph: 'qgr-graph-stacked-bar/src/qgr-graph-stacked-bar',
+    from: 'birds',
+    label: 'color',
+    title: 'Color',
+    x_group: 'species',
+    y_group: 'sex',
+    col: 'count',
+    controls: ControlsView,
+    qmapper: SpeciesSexQmapper
+  }
+
   var graph_config_map = {
     birds: bird_graph_config,
-    colors: color_graph_config
+    colors: color_graph_config,
+    stacked: stacked_graph_config
   }
 
   var AppController = Backbone.View.extend({
